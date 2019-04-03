@@ -1,8 +1,10 @@
-
+body{
+  --myColor1:ivory;
+}
 @media screen and (max-width: 600px) {
     body {
         width: 100%;
-        background-color: black;
+        background-color:var(--myColor1);
     }
     footer>div {
         display: block;
@@ -38,7 +40,7 @@
     nav>ul>li>a {
         text-decoration: none;
         color: brown;
-        font-family: 'Lucida Sans Unicode'; 
+        font-family: 'Lucida Sans Unicode';
     }
     nav>ul>li>a:hover {
         color: lightcoral;
@@ -75,5 +77,6 @@
 
 
     /* Correct or incorrect */
+
 
 }
