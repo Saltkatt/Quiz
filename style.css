@@ -1,0 +1,79 @@
+
+@media screen and (max-width: 600px) {
+    body {
+        width: 100%;
+        background-color: black;
+    }
+    footer>div {
+        display: block;
+    }
+    img {
+        width: 25vw;
+    }
+}
+
+/*  DESKTOP */
+
+@media screen and (min-width: 601px) {
+    body {
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    /* Nav */
+    nav {
+        background-color: orange;
+        padding: 1em;
+    }
+    nav>ul {
+        list-style-type: none;
+        background-color: orange;
+    }
+    nav>ul>li {
+        display: inline;
+        margin: 0;
+        background-color: orange;
+        padding: 0 1em;
+    }
+    nav>ul>li>a {
+        text-decoration: none;
+        color: brown;
+        font-family: 'Lucida Sans Unicode'; 
+    }
+    nav>ul>li>a:hover {
+        color: lightcoral;
+    }
+
+    /* Get Quiz */
+
+
+    /* present questions */
+    article{
+      background-color: ivory;
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+    article>ul>div {
+      margin: none;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    article>ul>div>button{
+      margin: 1em;
+    }
+
+    /* Buttons */
+    .button{
+      border:3px #333 solid;
+      color:#333;
+      padding: 10px 15px;
+      border: none;
+    }
+
+    /* answer field */
+
+
+    /* Correct or incorrect */
+
+}
