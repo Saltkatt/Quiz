@@ -1,10 +1,67 @@
 body{
   --myColor1:ivory;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 300px) {
     body {
         width: 100%;
-        background-color:var(--myColor1);
+        background-color: black;
+    }
+
+    /* Nav */
+    nav {
+        background-color: orange;
+        padding: 1em;
+    }
+    nav>ul {
+        list-style-type: none;
+        background-color: orange;
+    }
+    nav>ul>li {
+        display: inline;
+        margin: 0;
+        background-color: orange;
+        padding: 0 1em;
+    }
+    nav>ul>li>a {
+        text-decoration: none;
+        color: brown;
+        font-family: 'Lucida Sans Unicode';
+    }
+    nav>ul>li>a:hover {
+        color: lightcoral;
+    }
+
+    /* present questions */
+    article{
+      background-color: grey;
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+    article>ul>div {
+      margin: none;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+    article>ul>div>li{
+      color: white;
+    }
+
+    article>ul>div>button{
+      margin: 1em;
+    }
+
+    /* Buttons */
+    .button{
+      border:3px #333 solid;
+      color:#333;
+      padding: 10px 15px;
+      border: none;
+    }
+    .buttonGreen{
+      background-color: green;
+    }
+    .buttonRed{
+      background-color: red;
     }
     footer>div {
         display: block;
@@ -16,10 +73,12 @@ body{
 
 /*  DESKTOP */
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 301px) {
     body {
+
         margin: 0 auto;
         width: 80%;
+        background-color: ivory;
     }
 
     /* Nav */
@@ -72,8 +131,30 @@ body{
       padding: 10px 15px;
       border: none;
     }
+    .buttonGreen{
+      background-color: green;
+    }
+    .buttonRed{
+      background-color: red;
+    }
 
-    /* answer field */
+    /* Only one click per question. */
+    .unclickable {
+        pointer-events: none;
+    }
+
+    #myProgress{
+      width: 100%;
+      background-color: pink;
+    }
+    #myBar{
+      width:0%;
+      height: 30px;
+      background-color: orange;
+      margin-bottom: 2em;
+    }
+
+
 
 
     /* Correct or incorrect */

@@ -3,7 +3,14 @@
 var url = "https://opentdb.com/api.php?amount=10&type=boolean";
 var questions = [];
 var answers = [];
+var correctAnswers = [];
+var numberOfClicks = 0;
+var clickedQuestions = [];
+var oneClick = {
+   clicks:0 };
 var article = document.querySelector('article');
+var main = document.querySelector('main');
+
 
 
 // Get QuizAPI with random questions.
@@ -12,18 +19,12 @@ function getQuiz(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-      //document.getElementByID("demo").innerHTML = this.responseText;
       questions =  xhttp.response;
       showQuestions(questions);
+      countClicks();
       checkAnswer();
     }
-    // else {
-    //   //There was a problem with the request.
-    //   console.log("HTTP-status is not 200, HTTP-status is: " + xhttp.status);
-    // }
-    // else {
-    //   console.log(xhttp.readyState);
-    // }
+
   };
   xhttp.open("GET", url, true );
   xhttp.responseType = "json";
@@ -49,39 +50,74 @@ var i=1;
     <button type="button" id="${index}" value = "False" name="falseButton">FALSE</button>`
     qList.innerHTML = qStr
   })
+}
+//should only allow one answer per question.
+function countClicks(){
+  main.addEventListener('click', function(e){
 
+    oneClick.clicks++;
+    if(numberOfClicks < 1){
+      console.log(e.target);
+      if(e.target.nodeName == "BUTTON"){
+        e.target.parentNode.classList.add('unclickable');
+        clickedQuestions.push(e.target.id);
+      }
+    }
+    numberOfClicks++;
+    if(numberOfClicks == 1){
+      checkAnswer();
+      if (questions.length == answers.length){
+        console.log("End of Quiz");
+        //var endQuiz = '<p> You have finished the quiz</p>'
+        score()
+      }
+    }
+
+  })
 }
 
 //receives input and checks answer.
 function checkAnswer(){
-
   document.querySelector('article').addEventListener('click', (e) =>{
     if(e.target.nodeName == "BUTTON") {
-      let answerId = e.target.id;
+      let buttonId = e.target.id;
       let answer = e.target.value;
-      let apiAnswer = questions.results[answerId].correct_answer
-      console.log(answerId)
+      let apiAnswer = questions.results[buttonId].correct_answer
+      console.log(buttonId)
       console.log(e.target.value)
       answers.push(e.target.value);
 
+      //compares input answer to apiAnswer
       if(answer == apiAnswer){
         console.log("Correct answer!")
+        //if correct change button colour to green.
+        e.target.classList.add('buttonGreen');
+        clickedQuestions.push(e.target.id);
+        correctAnswers.push(e.target.id);
       }
       else {
         console.log("Incorrect answer!")
+        //otherwise change button colour to red.
+        e.target.classList.add('buttonRed');
+        clickedQuestions.push(e.target.id);
       }
     }
+    clickedQuestions = [];
   })
-
 }
 
+//prints quiz score!
+function score(){
+  var count = 0;
+  for ( var i = 0; i < correctAnswers.length; ++i){
+    count++;
+  }
+
+  //print correctAnswers.length;
+}
+
+// shows quiz progress.
+function progressbar(){
 
 
-
-//visa rätt eller fel
-// function setColour(){
-//   var property = answerId;
-//
-// }
-
-// progressbar i html
+}
