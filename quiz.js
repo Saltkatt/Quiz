@@ -21,7 +21,7 @@ function getQuiz(){
   xhttp.send();
 }
 
-// get the questions.
+// calls the function.
 getQuiz();
 
 //present the questions.
