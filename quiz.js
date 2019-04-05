@@ -1,17 +1,12 @@
-// AJAX
-
+//variables
 var url = "https://opentdb.com/api.php?amount=10&type=boolean";
 var questions = [];
 var answeredQuestions = 0;
 var correctAnswers = 0;
 var progressBarLength;
-var article = document.querySelector('article');
 var main = document.querySelector('main');
 
-
-
-// Get QuizAPI with random questions.
-
+// Get QuizAPI with 10 random questions.
 function getQuiz(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -20,16 +15,16 @@ function getQuiz(){
       showQuestions(questions);
       progressBarLength = questions.results.length;
     }
-
   };
   xhttp.open("GET", url, true );
   xhttp.responseType = "json";
   xhttp.send();
 }
 
-//presentera frågorna
+// get the questions.
 getQuiz();
 
+//present the questions.
 function showQuestions(questions){
   console.log(questions);
   //button id.
@@ -56,9 +51,11 @@ main.addEventListener('click', function(e) {
     var id = parseInt(e.target.id, 10);
     var questionIndex;
     document.getElementById(id).classList.add('unclickable');
+    //if button id is even make the other button unclickable
     if (id % 2 == 0) {
       document.getElementById(id + 1).classList.add('unclickable');
       questionIndex = id / 2;
+      // otherwise make the even button unclickable.
     } else {
       document.getElementById(id - 1).classList.add('unclickable');
       questionIndex = (id - 1) / 2;
@@ -69,27 +66,27 @@ main.addEventListener('click', function(e) {
 
 //checks answer and counts answered and correct questions.
 function checkAnswer(e, questionIndex){
-      let answer = e.target.value;
-      let apiAnswer = questions.results[questionIndex].correct_answer;
+  let answer = e.target.value;
+  let apiAnswer = questions.results[questionIndex].correct_answer;
 
-      //compares input answer to apiAnswer
-      if(answer == apiAnswer){
-        console.log("Correct answer!")
-        //if correct change button colour to green.
-        e.target.classList.add('buttonGreen');
-        correctAnswers++;
-      }
-      else {
-        console.log("Incorrect answer!")
-        //otherwise change button colour to red.
-        e.target.classList.add('buttonRed');
-      }
-      answeredQuestions++;
-      progressbar();
-      console.log(answeredQuestions + " " + progressBarLength);
-      if(answeredQuestions == progressBarLength){
-        score();
-      }
+  //compares input answer to apiAnswer
+  if(answer == apiAnswer){
+    console.log("Correct answer!")
+    //if correct change button colour to green.
+    e.target.classList.add('buttonGreen');
+    correctAnswers++;
+  }
+  else {
+    console.log("Incorrect answer!")
+    //otherwise change button colour to red.
+    e.target.classList.add('buttonRed');
+  }
+  answeredQuestions++;
+  progressbar();
+  console.log(answeredQuestions + " " + progressBarLength);
+  if(answeredQuestions == progressBarLength){
+    score();
+  }
 }
 
 //prints quiz score!
