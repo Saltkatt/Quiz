@@ -4,7 +4,7 @@ var url = "https://opentdb.com/api.php?amount=10&type=boolean";
 var questions = [];
 var answeredQuestions = 0;
 var correctAnswers = 0;
-var progressBarLength = 10;
+var progressBarLength;
 var article = document.querySelector('article');
 var main = document.querySelector('main');
 
@@ -31,13 +31,15 @@ function getQuiz(){
 getQuiz();
 
 function showQuestions(questions){
-  console.log(questions)
-//int for idStr
-var i=1;
-//List all 10 questions.
+  console.log(questions);
+  //button id.
+  var btnid = 0;
+  //int for idStr.
+  var i=1;
+  //List all 10 questions.
   questions.results.forEach( function (q, index) {
     console.log(q.question)
-//create element
+    //create element.
     var idStr = "Q" + i;
     i++;
     var qList = document.getElementById(idStr)
@@ -48,8 +50,7 @@ var i=1;
   })
 }
 
-var btnid = 0;
-
+//receives input and makes second button unclickable.
 main.addEventListener('click', function(e) {
   if (e.target.nodeName == "BUTTON") {
     var id = parseInt(e.target.id, 10);
@@ -66,7 +67,7 @@ main.addEventListener('click', function(e) {
   }
 })
 
-//receives input and checks answer.
+//checks answer and counts answered and correct questions.
 function checkAnswer(e, questionIndex){
       let answer = e.target.value;
       let apiAnswer = questions.results[questionIndex].correct_answer;
@@ -84,20 +85,25 @@ function checkAnswer(e, questionIndex){
         e.target.classList.add('buttonRed');
       }
       answeredQuestions++;
+      progressbar();
 }
 
 //prints quiz score!
 function score(){
-  var count = 0;
-  for ( var i = 0; i < correctAnswers.length; ++i){
-    count++;
+
+  correctAnswers;
+  var score = document.getElementById(myScore)
+  var scoreResult = '<h2>SCORE:"${correctAnswers++}"</h2>'
+  if(answeredQuestions == progressBarLength){
+    scoreResult.innerHTML = score;
   }
 
-  //print correctAnswers.length;
 }
 
 // shows quiz progress.
 function progressbar(){
 
-
+  var bar = document.getElementById("myBar");
+  bar.style.width = answeredQuestions * 10 + '%';
+  
 }
