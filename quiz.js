@@ -2,12 +2,9 @@
 
 var url = "https://opentdb.com/api.php?amount=10&type=boolean";
 var questions = [];
-var answers = [];
-var correctAnswers = [];
-var numberOfClicks = 0;
-var clickedQuestions = [];
-var oneClick = {
-   clicks:0 };
+var answeredQuestions = 0;
+var correctAnswers = 0;
+var progressBarLength = 10;
 var article = document.querySelector('article');
 var main = document.querySelector('main');
 
@@ -21,8 +18,7 @@ function getQuiz(){
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       questions =  xhttp.response;
       showQuestions(questions);
-      countClicks();
-      checkAnswer();
+      progressBarLength = questions.results.length;
     }
 
   };
@@ -46,64 +42,48 @@ var i=1;
     i++;
     var qList = document.getElementById(idStr)
     var qStr = `<li>${idStr + '. ' + q.question}</li>
-    <button type="button" id="${index}" value = "True" name="trueButton">TRUE</button>
-    <button type="button" id="${index}" value = "False" name="falseButton">FALSE</button>`
+    <button type="button" id="${btnid++}" value = "True" name="trueButton">TRUE</button>
+    <button type="button" id="${btnid++}" value = "False" name="falseButton">FALSE</button>`
     qList.innerHTML = qStr
   })
 }
-//should only allow one answer per question.
-function countClicks(){
-  main.addEventListener('click', function(e){
 
-    oneClick.clicks++;
-    if(numberOfClicks < 1){
-      console.log(e.target);
-      if(e.target.nodeName == "BUTTON"){
-        e.target.parentNode.classList.add('unclickable');
-        clickedQuestions.push(e.target.id);
-      }
-    }
-    numberOfClicks++;
-    if(numberOfClicks == 1){
-      checkAnswer();
-      if (questions.length == answers.length){
-        console.log("End of Quiz");
-        //var endQuiz = '<p> You have finished the quiz</p>'
-        score()
-      }
-    }
+var btnid = 0;
 
-  })
-}
+main.addEventListener('click', function(e) {
+  if (e.target.nodeName == "BUTTON") {
+    var id = parseInt(e.target.id, 10);
+    var questionIndex;
+    document.getElementById(id).classList.add('unclickable');
+    if (id % 2 == 0) {
+      document.getElementById(id + 1).classList.add('unclickable');
+      questionIndex = id / 2;
+    } else {
+      document.getElementById(id - 1).classList.add('unclickable');
+      questionIndex = (id - 1) / 2;
+    }
+    checkAnswer(e, questionIndex);
+  }
+})
 
 //receives input and checks answer.
-function checkAnswer(){
-  document.querySelector('article').addEventListener('click', (e) =>{
-    if(e.target.nodeName == "BUTTON") {
-      let buttonId = e.target.id;
+function checkAnswer(e, questionIndex){
       let answer = e.target.value;
-      let apiAnswer = questions.results[buttonId].correct_answer
-      console.log(buttonId)
-      console.log(e.target.value)
-      answers.push(e.target.value);
+      let apiAnswer = questions.results[questionIndex].correct_answer;
 
       //compares input answer to apiAnswer
       if(answer == apiAnswer){
         console.log("Correct answer!")
         //if correct change button colour to green.
         e.target.classList.add('buttonGreen');
-        clickedQuestions.push(e.target.id);
-        correctAnswers.push(e.target.id);
+        correctAnswers++;
       }
       else {
         console.log("Incorrect answer!")
         //otherwise change button colour to red.
         e.target.classList.add('buttonRed');
-        clickedQuestions.push(e.target.id);
       }
-    }
-    clickedQuestions = [];
-  })
+      answeredQuestions++;
 }
 
 //prints quiz score!
