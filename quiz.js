@@ -6,7 +6,7 @@ var correctAnswers = 0;
 var progressBarLength;
 var main = document.querySelector('main');
 
-// Get QuizAPI with 10 random questions.
+// get QuizAPI with 10 random questions.
 function getQuiz(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -89,19 +89,15 @@ function checkAnswer(e, questionIndex){
   }
 }
 
-//prints quiz score!
+//prints quiz score.
 function score(){
-
   var score = document.getElementById("myScore").innerHTML;
   score = score + " " + correctAnswers + " / 10";
   document.getElementById("myScore").innerHTML = score;
-
 }
 
 // shows quiz progress.
 function progressbar(){
-
   var bar = document.getElementById("myBar");
   bar.style.width = answeredQuestions * 10 + '%';
-
 }
