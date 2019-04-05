@@ -1,5 +1,5 @@
 /* Small screen*/
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 400px) {
     body {
         width: 100%;
         background-color: black;
@@ -86,7 +86,7 @@
 
 /*  DESKTOP */
 
-@media screen and (min-width: 301px) {
+@media screen and (min-width: 401px) {
     body {
 
         margin: 0 auto;
