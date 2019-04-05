@@ -3,6 +3,7 @@
     body {
         width: 100%;
         background-color: black;
+        color: white;
     }
 
     /* Nav */
@@ -88,7 +89,6 @@
 
 @media screen and (min-width: 401px) {
     body {
-
         margin: 0 auto;
         width: 80%;
         background-color: ivory;
