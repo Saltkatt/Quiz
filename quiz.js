@@ -86,17 +86,18 @@ function checkAnswer(e, questionIndex){
       }
       answeredQuestions++;
       progressbar();
+      console.log(answeredQuestions + " " + progressBarLength);
+      if(answeredQuestions == progressBarLength){
+        score();
+      }
 }
 
 //prints quiz score!
 function score(){
 
-  correctAnswers;
-  var score = document.getElementById(myScore)
-  var scoreResult = '<h2>SCORE:"${correctAnswers++}"</h2>'
-  if(answeredQuestions == progressBarLength){
-    scoreResult.innerHTML = score;
-  }
+  var score = document.getElementById("myScore").innerHTML;
+  score = score + " " + correctAnswers + " / 10";
+  document.getElementById("myScore").innerHTML = score;
 
 }
 
@@ -105,5 +106,5 @@ function progressbar(){
 
   var bar = document.getElementById("myBar");
   bar.style.width = answeredQuestions * 10 + '%';
-  
+
 }
